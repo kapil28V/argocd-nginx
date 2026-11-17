@@ -1,0 +1,27 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-sa-app
+  namespace: sa-demo
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: nginx-sa-app
+
+  template:
+    metadata:
+      labels:
+        app: nginx-sa-app
+
+    spec:
+      serviceAccountName: nginx-sa
+
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
